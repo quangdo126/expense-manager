@@ -382,6 +382,7 @@ select {
   padding: 4px;
   background: var(--bg-tertiary);
   border-radius: var(--radius-full);
+  margin-bottom: 20px;
 }
 
 .tab {
@@ -426,7 +427,7 @@ select {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 2px;
   padding: 8px 0;
   color: var(--text-muted);
   transition: var(--transition-fast);
@@ -798,26 +799,6 @@ select {
   .stats-grid {
     grid-template-columns: 1fr;
   }
-}
-
-/* ================= List Items ================= */
-.list-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px;
-  background: var(--bg-tertiary);
-  border-radius: var(--radius-md);
-  margin-bottom: 12px;
-  transition: var(--transition-fast);
-}
-
-.list-item:last-child {
-  margin-bottom: 0;
-}
-
-.list-item:hover {
-  background: #3f4f65;
 }
 
 /* ================= Avatar Fix ================= */

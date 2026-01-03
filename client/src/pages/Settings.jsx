@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
 import { authAPI, pushAPI } from '../api';
 import { useAuth } from '../context/AuthContext';
-import { useSettings } from '../context/SettingsContext';
 
 export default function Settings() {
     const { user, logout } = useAuth();
-    const { amountDisplay, setAmountDisplay } = useSettings();
     const [passwordForm, setPasswordForm] = useState({
         currentPassword: '',
         newPassword: '',
@@ -288,27 +286,6 @@ export default function Settings() {
                             onClick={handleTogglePush}
                         >
                             {pushEnabled ? 'Bật' : 'Tắt'}
-                        </button>
-                    </div>
-                </div>
-
-                {/* Amount Display */}
-                <div className="card" style={{ marginBottom: '20px' }}>
-                    <div style={{ fontWeight: '600', marginBottom: '12px' }}>💰 Hiển thị số tiền</div>
-                    <div className="tabs">
-                        <button
-                            type="button"
-                            className={`tab ${amountDisplay === 'full' ? 'active' : ''}`}
-                            onClick={() => setAmountDisplay('full')}
-                        >
-                            Đầy đủ (1,000đ)
-                        </button>
-                        <button
-                            type="button"
-                            className={`tab ${amountDisplay === 'short' ? 'active' : ''}`}
-                            onClick={() => setAmountDisplay('short')}
-                        >
-                            Viết tắt (1K, 1M)
                         </button>
                     </div>
                 </div>
