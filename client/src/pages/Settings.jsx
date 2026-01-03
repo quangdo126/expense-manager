@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { authAPI, pushAPI } from '../api';
 import { useAuth } from '../context/AuthContext';
+import ConfirmModal from '../components/ConfirmModal';
 
 export default function Settings() {
     const { user, logout } = useAuth();
@@ -88,9 +89,7 @@ export default function Settings() {
     };
 
     const handleLogout = () => {
-        if (confirm('Bạn có chắc muốn đăng xuất?')) {
-            logout();
-        }
+        setShowLogoutConfirm(true);
     };
 
     useEffect(() => {
@@ -100,6 +99,7 @@ export default function Settings() {
         }
     }, [toast]);
 
+    const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
     const [showAvatarPicker, setShowAvatarPicker] = useState(false);
     const [avatarPreview, setAvatarPreview] = useState(null);
     const [uploadLoading, setUploadLoading] = useState(false);
@@ -348,6 +348,18 @@ export default function Settings() {
                     {toast.message}
                 </div>
             )}
+
+            {/* Logout Confirm Modal */}
+            <ConfirmModal
+                isOpen={showLogoutConfirm}
+                onClose={() => setShowLogoutConfirm(false)}
+                onConfirm={logout}
+                title="Đăng xuất"
+                message="Bạn có chắc muốn đăng xuất khỏi tài khoản?"
+                confirmText="Đăng xuất"
+                cancelText="Hủy"
+                type="danger"
+            />
         </div>
     );
 }
