@@ -3,6 +3,7 @@ import { budgetsAPI, categoriesAPI } from '../api';
 import { useAuth } from '../context/AuthContext';
 import ConfirmModal from '../components/ConfirmModal';
 import CustomSelect from '../components/CustomSelect';
+import { Icons } from '../components/Icons';
 
 export default function Budgets() {
     const { isAdmin } = useAuth();
@@ -151,10 +152,11 @@ export default function Budgets() {
                                 {isAdmin && (
                                     <button
                                         className="btn btn-ghost"
-                                        style={{ color: 'var(--danger)' }}
+                                        style={{ color: 'var(--danger)', padding: '8px' }}
                                         onClick={() => setDeletingId(budget._id)}
+                                        title="Xóa"
                                     >
-                                        🗑️
+                                        <Icons.delete style={{ width: '18px', height: '18px' }} />
                                     </button>
                                 )}
                             </div>

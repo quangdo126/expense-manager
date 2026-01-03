@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { investmentsAPI } from '../api';
 import ConfirmModal from '../components/ConfirmModal';
 import CustomSelect from '../components/CustomSelect';
+import { Icons } from '../components/Icons';
 
 const INVESTMENT_TYPES = {
     stock: { label: 'Cổ phiếu', icon: '📈' },
@@ -207,10 +208,11 @@ export default function Investments() {
                                     </button>
                                     <button
                                         className="btn btn-ghost"
-                                        style={{ color: 'var(--danger)' }}
+                                        style={{ color: 'var(--danger)', padding: '8px' }}
                                         onClick={() => setDeletingId(inv._id)}
+                                        title="Xóa"
                                     >
-                                        🗑️
+                                        <Icons.delete style={{ width: '18px', height: '18px' }} />
                                     </button>
                                 </div>
                             </div>

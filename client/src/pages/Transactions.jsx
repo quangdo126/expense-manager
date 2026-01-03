@@ -160,12 +160,20 @@ export default function Transactions() {
                                         <div className="transaction-info">
                                             <div className="transaction-category">
                                                 {tx.categoryId?.name || 'Khác'}
+                                                <span style={{
+                                                    fontWeight: '400',
+                                                    color: 'var(--text-muted)',
+                                                    marginLeft: '8px',
+                                                    fontSize: '0.75rem'
+                                                }}>
+                                                    {tx.userId?.displayName} • {formatTime(tx.date)}
+                                                </span>
                                             </div>
-                                            <div className="transaction-meta">
-                                                <span>{tx.userId?.displayName}</span>
-                                                <span>{formatTime(tx.date)}</span>
-                                                {tx.description && <span>{tx.description}</span>}
-                                            </div>
+                                            {tx.description && (
+                                                <div className="transaction-meta">
+                                                    <span>{tx.description}</span>
+                                                </div>
+                                            )}
                                         </div>
                                         <div className={`transaction-amount amount-${tx.type}`}>
                                             {tx.type === 'expense' ? '-' : '+'}{formatAmount(tx.amount)}đ

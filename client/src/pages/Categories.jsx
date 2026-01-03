@@ -3,6 +3,7 @@ import { categoriesAPI } from '../api';
 import { useAuth } from '../context/AuthContext';
 import IconPicker from '../components/IconPicker';
 import ConfirmModal from '../components/ConfirmModal';
+import { Icons } from '../components/Icons';
 
 export default function Categories() {
     const { isAdmin } = useAuth();
@@ -208,10 +209,11 @@ export default function Categories() {
                                         {!cat.isSystemDefault && (
                                             <button
                                                 className="btn btn-ghost"
-                                                style={{ color: 'var(--danger)' }}
+                                                style={{ color: 'var(--danger)', padding: '8px' }}
                                                 onClick={() => setDeletingCategory(cat)}
+                                                title="Xóa"
                                             >
-                                                🗑️
+                                                <Icons.delete style={{ width: '18px', height: '18px' }} />
                                             </button>
                                         )}
                                     </div>

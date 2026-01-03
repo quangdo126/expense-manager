@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { recurringAPI, categoriesAPI } from '../api';
 import ConfirmModal from '../components/ConfirmModal';
 import CustomSelect from '../components/CustomSelect';
+import { Icons } from '../components/Icons';
 
 const FREQUENCY_LABELS = {
     daily: 'Hàng ngày',
@@ -197,27 +198,34 @@ export default function Recurring() {
                                 </div>
                             </div>
 
-                            <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
+                            <div style={{ display: 'flex', gap: '8px', marginTop: '12px', alignItems: 'center' }}>
                                 <button
                                     className="btn btn-secondary"
-                                    style={{ flex: 1, padding: '8px' }}
+                                    style={{ flex: 1, padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
                                     onClick={() => handleRun(rec._id)}
                                 >
-                                    ▶ Chạy ngay
+                                    <Icons.playCircle style={{ width: '16px', height: '16px' }} />
+                                    Chạy ngay
                                 </button>
                                 <button
                                     className={`btn ${rec.isActive ? 'btn-secondary' : 'btn-primary'}`}
-                                    style={{ padding: '8px 12px' }}
+                                    style={{ padding: '8px 12px', display: 'flex', alignItems: 'center', gap: '6px' }}
                                     onClick={() => handleToggle(rec._id, rec.isActive)}
+                                    title={rec.isActive ? 'Tạm dừng' : 'Kích hoạt'}
                                 >
-                                    {rec.isActive ? '⏸️' : '▶️'}
+                                    {rec.isActive ? (
+                                        <><Icons.pause style={{ width: '14px', height: '14px' }} /> Dừng</>
+                                    ) : (
+                                        <><Icons.play style={{ width: '14px', height: '14px' }} /> Chạy</>
+                                    )}
                                 </button>
                                 <button
                                     className="btn btn-ghost"
-                                    style={{ color: 'var(--danger)' }}
+                                    style={{ color: 'var(--danger)', padding: '8px' }}
                                     onClick={() => setDeletingId(rec._id)}
+                                    title="Xóa"
                                 >
-                                    🗑️
+                                    <Icons.delete style={{ width: '18px', height: '18px' }} />
                                 </button>
                             </div>
                         </div>
