@@ -10,7 +10,7 @@ export default defineConfig({
             includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
             manifest: {
                 name: 'Quản Lý Thu Chi Gia Đình Thóc',
-                short_name: 'Thóc',
+                short_name: 'Ví của Thóc',
                 description: 'Quản lý chi tiêu và thu nhập gia đình Thóc',
                 theme_color: '#6366f1',
                 background_color: '#0f172a',
