@@ -1,0 +1,23 @@
+# Render Blueprint
+# Deploy: Connect GitHub repo to Render, it will auto-detect this file
+
+services:
+  - type: web
+    name: family-expense-api
+    runtime: node
+    region: singapore
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: VAPID_PUBLIC_KEY
+        sync: false
+      - key: VAPID_PRIVATE_KEY
+        sync: false
