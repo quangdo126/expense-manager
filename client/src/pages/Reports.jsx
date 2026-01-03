@@ -4,6 +4,7 @@ import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
     LineChart, Line, Legend
 } from 'recharts';
+import CustomSelect from '../components/CustomSelect';
 
 export default function Reports() {
     const [mainTab, setMainTab] = useState('thisMonth'); // thisMonth, custom
@@ -178,44 +179,36 @@ export default function Reports() {
                         {/* Month selector */}
                         {customPreset === 'month' && (
                             <div style={{ display: 'flex', gap: '8px' }}>
-                                <select
-                                    className="form-input"
+                                <CustomSelect
                                     value={selectedMonth}
-                                    onChange={(e) => setSelectedMonth(parseInt(e.target.value))}
+                                    onChange={(val) => setSelectedMonth(parseInt(val))}
+                                    options={monthFullNames.map((name, idx) => ({ value: idx + 1, label: name }))}
                                     style={{ flex: 1 }}
-                                >
-                                    {monthFullNames.map((name, idx) => (
-                                        <option key={idx} value={idx + 1}>{name}</option>
-                                    ))}
-                                </select>
-                                <select
-                                    className="form-input"
+                                />
+                                <CustomSelect
                                     value={selectedYear}
-                                    onChange={(e) => setSelectedYear(parseInt(e.target.value))}
-                                    style={{ flex: 1 }}
-                                >
-                                    {[...Array(5)].map((_, i) => {
+                                    onChange={(val) => setSelectedYear(parseInt(val))}
+                                    options={[...Array(5)].map((_, i) => {
                                         const y = new Date().getFullYear() - i;
-                                        return <option key={y} value={y}>{y}</option>;
+                                        return { value: y, label: String(y) };
                                     })}
-                                </select>
+                                    style={{ flex: 1 }}
+                                />
                             </div>
                         )}
 
                         {/* Year selector */}
                         {customPreset === 'year' && (
                             <div style={{ display: 'flex', gap: '8px' }}>
-                                <select
-                                    className="form-input"
+                                <CustomSelect
                                     value={selectedYear}
-                                    onChange={(e) => setSelectedYear(parseInt(e.target.value))}
-                                    style={{ flex: 1 }}
-                                >
-                                    {Array.from({ length: new Date().getFullYear() - 2019 }, (_, i) => {
+                                    onChange={(val) => setSelectedYear(parseInt(val))}
+                                    options={Array.from({ length: new Date().getFullYear() - 2019 }, (_, i) => {
                                         const y = new Date().getFullYear() - i;
-                                        return <option key={y} value={y}>{y}</option>;
+                                        return { value: y, label: String(y) };
                                     })}
-                                </select>
+                                    style={{ flex: 1 }}
+                                />
                             </div>
                         )}
 

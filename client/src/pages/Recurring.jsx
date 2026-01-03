@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { recurringAPI, categoriesAPI } from '../api';
 import ConfirmModal from '../components/ConfirmModal';
+import CustomSelect from '../components/CustomSelect';
 
 const FREQUENCY_LABELS = {
     daily: 'Hàng ngày',
@@ -255,19 +256,12 @@ export default function Recurring() {
 
                             <div className="form-group">
                                 <label className="form-label">Danh mục</label>
-                                <select
-                                    className="form-input"
+                                <CustomSelect
                                     value={formData.categoryId}
-                                    onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
-                                    required
-                                >
-                                    <option value="">Chọn danh mục...</option>
-                                    {filteredCategories.map(cat => (
-                                        <option key={cat._id} value={cat._id}>
-                                            {cat.icon} {cat.name}
-                                        </option>
-                                    ))}
-                                </select>
+                                    onChange={(val) => setFormData({ ...formData, categoryId: val })}
+                                    options={filteredCategories.map(cat => ({ value: cat._id, label: `${cat.icon} ${cat.name}` }))}
+                                    placeholder="Chọn danh mục..."
+                                />
                             </div>
 
                             <div className="form-group">
@@ -294,15 +288,11 @@ export default function Recurring() {
 
                             <div className="form-group">
                                 <label className="form-label">Tần suất</label>
-                                <select
-                                    className="form-input"
+                                <CustomSelect
                                     value={formData.frequency}
-                                    onChange={(e) => setFormData({ ...formData, frequency: e.target.value })}
-                                >
-                                    {Object.entries(FREQUENCY_LABELS).map(([key, label]) => (
-                                        <option key={key} value={key}>{label}</option>
-                                    ))}
-                                </select>
+                                    onChange={(val) => setFormData({ ...formData, frequency: val })}
+                                    options={Object.entries(FREQUENCY_LABELS).map(([key, label]) => ({ value: key, label }))}
+                                />
                             </div>
 
                             {formData.frequency === 'monthly' && (

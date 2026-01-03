@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { budgetsAPI, categoriesAPI } from '../api';
 import { useAuth } from '../context/AuthContext';
 import ConfirmModal from '../components/ConfirmModal';
+import CustomSelect from '../components/CustomSelect';
 
 export default function Budgets() {
     const { isAdmin } = useAuth();
@@ -209,19 +210,12 @@ export default function Budgets() {
                         <form onSubmit={handleSubmit}>
                             <div className="form-group">
                                 <label className="form-label">Danh mục</label>
-                                <select
-                                    className="form-input"
+                                <CustomSelect
                                     value={formData.categoryId}
-                                    onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
-                                    required
-                                >
-                                    <option value="">Chọn danh mục...</option>
-                                    {availableCategories.map(cat => (
-                                        <option key={cat._id} value={cat._id}>
-                                            {cat.icon} {cat.name}
-                                        </option>
-                                    ))}
-                                </select>
+                                    onChange={(val) => setFormData({ ...formData, categoryId: val })}
+                                    options={availableCategories.map(cat => ({ value: cat._id, label: `${cat.icon} ${cat.name}` }))}
+                                    placeholder="Chọn danh mục..."
+                                />
                             </div>
                             <div className="form-group">
                                 <label className="form-label">Số tiền ngân sách</label>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { investmentsAPI } from '../api';
 import ConfirmModal from '../components/ConfirmModal';
+import CustomSelect from '../components/CustomSelect';
 
 const INVESTMENT_TYPES = {
     stock: { label: 'Cổ phiếu', icon: '📈' },
@@ -240,15 +241,11 @@ export default function Investments() {
                             </div>
                             <div className="form-group">
                                 <label className="form-label">Loại</label>
-                                <select
-                                    className="form-input"
+                                <CustomSelect
                                     value={formData.type}
-                                    onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                                >
-                                    {Object.entries(INVESTMENT_TYPES).map(([key, { label, icon }]) => (
-                                        <option key={key} value={key}>{icon} {label}</option>
-                                    ))}
-                                </select>
+                                    onChange={(val) => setFormData({ ...formData, type: val })}
+                                    options={Object.entries(INVESTMENT_TYPES).map(([key, { label, icon }]) => ({ value: key, label: `${icon} ${label}` }))}
+                                />
                             </div>
                             <div className="form-group">
                                 <label className="form-label">Số tiền đầu tư</label>
