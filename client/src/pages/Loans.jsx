@@ -135,12 +135,12 @@ export default function Loans() {
                 <div className="stats-grid">
                     <div className="stat-card">
                         <div className="stat-label">Tổng</div>
-                        <div className="stat-value">{formatAmount(totals.total)}đ</div>
+                        <div className="stat-value">{formatAmount(totals.total)}</div>
                     </div>
                     <div className="stat-card">
                         <div className="stat-label">Còn lại</div>
                         <div className="stat-value" style={{ color: 'var(--warning)' }}>
-                            {formatAmount(totals.remaining)}đ
+                            {formatAmount(totals.remaining)}
                         </div>
                     </div>
                 </div>
@@ -187,14 +187,14 @@ export default function Loans() {
                                             {loan.personName}
                                         </div>
                                         <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginBottom: '2px' }}>
-                                            Số tiền: {formatAmount(loan.amount)}đ
+                                            Số tiền: {formatAmount(loan.amount)}
                                         </div>
                                         <div style={{
                                             fontSize: '0.875rem',
                                             color: loan.remainingAmount > 0 ? 'var(--warning)' : 'var(--success)',
                                             marginBottom: '2px'
                                         }}>
-                                            {loan.status === 'completed' ? 'Đã trả hết' : `Còn nợ: ${formatAmount(loan.remainingAmount)}đ`}
+                                            {loan.status === 'completed' ? 'Đã trả hết' : `Còn nợ: ${formatAmount(loan.remainingAmount)}`}
                                         </div>
                                         {loan.dueDate && (
                                             <div style={{ fontSize: '0.75rem', color: loan.status === 'overdue' ? 'var(--danger)' : 'var(--text-muted)' }}>
@@ -280,7 +280,7 @@ export default function Loans() {
                             <button className="modal-close" onClick={() => setShowPayment(null)}>×</button>
                         </div>
                         <p style={{ marginBottom: '16px', color: 'var(--text-secondary)' }}>
-                            Còn nợ: <strong>{formatAmount(showPayment.remainingAmount)}đ</strong>
+                            Còn nợ: <strong>{formatAmount(showPayment.remainingAmount)}</strong>
                         </p>
                         <div className="form-group">
                             <label className="form-label">Số tiền thanh toán</label>

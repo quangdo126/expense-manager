@@ -246,13 +246,13 @@ export default function Reports() {
                             <div className="stat-card income">
                                 <div className="stat-label">Tổng thu</div>
                                 <div className="stat-value amount-income">
-                                    +{formatAmount(totals.income)}đ
+                                    +{formatAmount(totals.income)}
                                 </div>
                             </div>
                             <div className="stat-card expense">
                                 <div className="stat-label">Tổng chi</div>
                                 <div className="stat-value amount-expense">
-                                    -{formatAmount(totals.expense)}đ
+                                    -{formatAmount(totals.expense)}
                                 </div>
                             </div>
                         </div>

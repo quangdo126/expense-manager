@@ -190,7 +190,7 @@ export default function Recurring() {
                                         fontWeight: '600',
                                         color: rec.type === 'expense' ? 'var(--danger)' : 'var(--success)'
                                     }}>
-                                        {rec.type === 'expense' ? '-' : '+'}{formatAmount(rec.amount)}đ
+                                        {rec.type === 'expense' ? '-' : '+'}{formatAmount(rec.amount)}
                                     </div>
                                     <div style={{ fontSize: '0.625rem', color: 'var(--text-muted)' }}>
                                         Lần tới: {new Date(rec.nextRun).toLocaleDateString('vi-VN')}

@@ -171,7 +171,7 @@ export default function Transactions() {
                                             )}
                                         </div>
                                         <div className={`transaction-amount amount-${tx.type}`}>
-                                            {tx.type === 'expense' ? '-' : '+'}{formatAmount(tx.amount)}đ
+                                            {tx.type === 'expense' ? '-' : '+'}{formatAmount(tx.amount)}
                                         </div>
                                     </div>
                                 ))}
@@ -225,7 +225,7 @@ export default function Transactions() {
                                 {editingTx.categoryId?.icon || '📝'}
                             </div>
                             <div className={`amount amount-large amount-${editingTx.type}`}>
-                                {editingTx.type === 'expense' ? '-' : '+'}{formatAmount(editingTx.amount)}đ
+                                {editingTx.type === 'expense' ? '-' : '+'}{formatAmount(editingTx.amount)}
                             </div>
                             <div style={{ color: 'var(--text-secondary)', marginTop: '8px' }}>
                                 {editingTx.categoryId?.name}

@@ -144,9 +144,9 @@ export default function Budgets() {
                                     </div>
                                 </div>
                                 <div style={{ textAlign: 'right' }}>
-                                    <div style={{ fontWeight: '600' }}>{formatAmount(budget.spent || 0)}đ</div>
+                                    <div style={{ fontWeight: '600' }}>{formatAmount(budget.spent || 0)}</div>
                                     <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                                        / {formatAmount(budget.amount)}đ
+                                        / {formatAmount(budget.amount)}
                                     </div>
                                 </div>
                                 {isAdmin && (
@@ -193,7 +193,7 @@ export default function Budgets() {
                                     {budget.percent || 0}%
                                 </span>
                                 <span style={{ color: 'var(--text-muted)' }}>
-                                    Còn: {formatAmount(Math.max(0, budget.amount - (budget.spent || 0)))}đ
+                                    Còn: {formatAmount(Math.max(0, budget.amount - (budget.spent || 0)))}
                                 </span>
                             </div>
                         </div>

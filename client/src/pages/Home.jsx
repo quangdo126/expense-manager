@@ -137,7 +137,7 @@ export default function Home() {
                                         {preview.type === 'expense' ? 'Chi tiêu' : 'Thu nhập'}
                                     </span>
                                     <span className={`amount amount-large amount-${preview.type}`}>
-                                        {preview.type === 'expense' ? '-' : '+'}{formatAmount(preview.amount)}đ
+                                        {preview.type === 'expense' ? '-' : '+'}{formatAmount(preview.amount)}
                                     </span>
                                 </div>
 
@@ -207,7 +207,7 @@ export default function Home() {
                                     </div>
                                 </div>
                                 <div className={`transaction-amount amount-${tx.type}`}>
-                                    {tx.type === 'expense' ? '-' : '+'}{formatAmount(tx.amount)}đ
+                                    {tx.type === 'expense' ? '-' : '+'}{formatAmount(tx.amount)}
                                 </div>
                             </div>
                         ))

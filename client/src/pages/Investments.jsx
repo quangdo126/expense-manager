@@ -123,18 +123,18 @@ export default function Investments() {
                 <div className="stats-grid" style={{ marginBottom: '20px' }}>
                     <div className="stat-card">
                         <div className="stat-label">Tổng đầu tư</div>
-                        <div className="stat-value">{formatAmount(totals.totalInvested || 0)}đ</div>
+                        <div className="stat-value">{formatAmount(totals.totalInvested || 0)}</div>
                     </div>
                     <div className="stat-card">
                         <div className="stat-label">Giá trị hiện tại</div>
-                        <div className="stat-value">{formatAmount(totals.totalValue || 0)}đ</div>
+                        <div className="stat-value">{formatAmount(totals.totalValue || 0)}</div>
                     </div>
                     <div className="stat-card" style={{ gridColumn: 'span 2' }}>
                         <div className="stat-label">Lợi nhuận</div>
                         <div className="stat-value" style={{
                             color: (totals.totalProfit || 0) >= 0 ? 'var(--success)' : 'var(--danger)'
                         }}>
-                            {(totals.totalProfit || 0) >= 0 ? '+' : ''}{formatAmount(totals.totalProfit || 0)}đ
+                            {(totals.totalProfit || 0) >= 0 ? '+' : ''}{formatAmount(totals.totalProfit || 0)}
                             <span style={{ fontSize: '0.875rem', marginLeft: '8px' }}>
                                 ({totals.profitPercent || 0}%)
                             </span>
@@ -181,16 +181,16 @@ export default function Investments() {
                                     <div style={{ flex: 1 }}>
                                         <div style={{ fontWeight: '600' }}>{inv.name}</div>
                                         <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                                            {INVESTMENT_TYPES[inv.type]?.label} • Vốn: {formatAmount(inv.investedAmount)}đ
+                                            {INVESTMENT_TYPES[inv.type]?.label} • Vốn: {formatAmount(inv.investedAmount)}
                                         </div>
                                     </div>
                                     <div style={{ textAlign: 'right' }}>
-                                        <div style={{ fontWeight: '600' }}>{formatAmount(inv.currentValue)}đ</div>
+                                        <div style={{ fontWeight: '600' }}>{formatAmount(inv.currentValue)}</div>
                                         <div style={{
                                             fontSize: '0.75rem',
                                             color: profit >= 0 ? 'var(--success)' : 'var(--danger)'
                                         }}>
-                                            {profit >= 0 ? '+' : ''}{formatAmount(profit)}đ ({profitPercent}%)
+                                            {profit >= 0 ? '+' : ''}{formatAmount(profit)} ({profitPercent}%)
                                         </div>
                                     </div>
                                 </div>

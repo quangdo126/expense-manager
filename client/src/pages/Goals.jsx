@@ -164,10 +164,10 @@ export default function Goals() {
 
                                     <div style={{ textAlign: 'center', marginBottom: '16px' }}>
                                         <div style={{ fontSize: '1.5rem', fontWeight: '700' }}>
-                                            {formatAmount(goal.currentAmount)}đ
+                                            {formatAmount(goal.currentAmount)}
                                         </div>
                                         <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-                                            / {formatAmount(goal.targetAmount)}đ
+                                            / {formatAmount(goal.targetAmount)}
                                         </div>
                                     </div>
 
@@ -212,7 +212,7 @@ export default function Goals() {
                                 <div className="transaction-info">
                                     <div className="transaction-category">{goal.name}</div>
                                     <div className="transaction-meta">
-                                        <span>{formatAmount(goal.targetAmount)}đ</span>
+                                        <span>{formatAmount(goal.targetAmount)}</span>
                                     </div>
                                 </div>
                             </div>
@@ -324,7 +324,7 @@ export default function Goals() {
                             <button className="modal-close" onClick={() => setShowContribute(null)}>×</button>
                         </div>
                         <p style={{ marginBottom: '16px', color: 'var(--text-secondary)' }}>
-                            {showContribute.name} - Còn thiếu: <strong>{formatAmount(showContribute.targetAmount - showContribute.currentAmount)}đ</strong>
+                            {showContribute.name} - Còn thiếu: <strong>{formatAmount(showContribute.targetAmount - showContribute.currentAmount)}</strong>
                         </p>
                         <div className="form-group">
                             <label className="form-label">Số tiền</label>

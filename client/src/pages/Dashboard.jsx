@@ -70,13 +70,13 @@ export default function Dashboard() {
                     <div className="stat-card income">
                         <div className="stat-label">Thu nhập</div>
                         <div className="stat-value amount-income">
-                            +{formatAmount(summary?.totals?.income || 0)}đ
+                            +{formatAmount(summary?.totals?.income || 0)}
                         </div>
                     </div>
                     <div className="stat-card expense">
                         <div className="stat-label">Chi tiêu</div>
                         <div className="stat-value amount-expense">
-                            -{formatAmount(summary?.totals?.expense || 0)}đ
+                            -{formatAmount(summary?.totals?.expense || 0)}
                         </div>
                     </div>
                 </div>
@@ -161,7 +161,7 @@ export default function Dashboard() {
                                 <div className="member-role">{user.count} giao dịch</div>
                             </div>
                             <div className="amount amount-expense">
-                                -{formatAmount(user.total)}đ
+                                -{formatAmount(user.total)}
                             </div>
                         </div>
                     ))}
