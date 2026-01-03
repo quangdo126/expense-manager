@@ -165,37 +165,53 @@ export default function Loans() {
                         </div>
                     ) : (
                         filteredLoans.map(loan => (
-                            <div key={loan._id} className="transaction-item">
-                                <div
-                                    className="transaction-icon"
-                                    style={{ background: loan.status === 'completed' ? 'var(--success)' : loan.status === 'overdue' ? 'var(--danger)' : 'var(--warning)' }}
-                                >
-                                    {loan.status === 'completed' ? '✓' : loan.type === 'borrow' ? '📥' : '📤'}
-                                </div>
-                                <div className="transaction-info">
-                                    <div className="transaction-category">{loan.personName}</div>
-                                    <div className="transaction-meta">
-                                        <span>{loan.status === 'completed' ? 'Đã trả' : loan.status === 'overdue' ? 'Quá hạn' : 'Đang nợ'}</span>
-                                        {loan.dueDate && <span>Hạn: {new Date(loan.dueDate).toLocaleDateString('vi-VN')}</span>}
-                                    </div>
-                                </div>
-                                <div style={{ textAlign: 'right' }}>
-                                    <div className="transaction-amount" style={{ color: loan.remainingAmount > 0 ? 'var(--warning)' : 'var(--success)' }}>
-                                        {formatAmount(loan.remainingAmount)}đ
-                                    </div>
-                                    <div style={{ fontSize: '0.625rem', color: 'var(--text-muted)' }}>
-                                        / {formatAmount(loan.amount)}đ
-                                    </div>
-                                </div>
-                                {loan.status !== 'completed' && (
-                                    <button
-                                        className="btn btn-secondary"
-                                        style={{ padding: '8px 12px', marginLeft: '8px' }}
-                                        onClick={() => setShowPayment(loan)}
+                            <div key={loan._id} className="card" style={{ marginBottom: '12px' }}>
+                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                                    <div
+                                        style={{
+                                            width: '44px',
+                                            height: '44px',
+                                            borderRadius: '12px',
+                                            background: loan.status === 'completed' ? 'var(--success)' : loan.status === 'overdue' ? 'var(--danger)' : 'var(--warning)',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            fontSize: '1.25rem',
+                                            flexShrink: 0
+                                        }}
                                     >
-                                        💰
-                                    </button>
-                                )}
+                                        {loan.status === 'completed' ? '✓' : loan.type === 'borrow' ? '📥' : '📤'}
+                                    </div>
+                                    <div style={{ flex: 1 }}>
+                                        <div style={{ fontWeight: '600', marginBottom: '4px' }}>
+                                            {loan.personName}
+                                        </div>
+                                        <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginBottom: '2px' }}>
+                                            Số tiền: {formatAmount(loan.amount)}đ
+                                        </div>
+                                        <div style={{
+                                            fontSize: '0.875rem',
+                                            color: loan.remainingAmount > 0 ? 'var(--warning)' : 'var(--success)',
+                                            marginBottom: '2px'
+                                        }}>
+                                            {loan.status === 'completed' ? 'Đã trả hết' : `Còn nợ: ${formatAmount(loan.remainingAmount)}đ`}
+                                        </div>
+                                        {loan.dueDate && (
+                                            <div style={{ fontSize: '0.75rem', color: loan.status === 'overdue' ? 'var(--danger)' : 'var(--text-muted)' }}>
+                                                Hạn: {new Date(loan.dueDate).toLocaleDateString('vi-VN')}
+                                            </div>
+                                        )}
+                                    </div>
+                                    {loan.status !== 'completed' && (
+                                        <button
+                                            className="btn btn-secondary"
+                                            style={{ padding: '8px 12px' }}
+                                            onClick={() => setShowPayment(loan)}
+                                        >
+                                            💰
+                                        </button>
+                                    )}
+                                </div>
                             </div>
                         ))
                     )}

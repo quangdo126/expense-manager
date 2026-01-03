@@ -160,18 +160,13 @@ export default function Transactions() {
                                         <div className="transaction-info">
                                             <div className="transaction-category">
                                                 {tx.categoryId?.name || 'Khác'}
-                                                <span style={{
-                                                    fontWeight: '400',
-                                                    color: 'var(--text-muted)',
-                                                    marginLeft: '8px',
-                                                    fontSize: '0.75rem'
-                                                }}>
-                                                    {tx.userId?.displayName} • {formatTime(tx.date)}
-                                                </span>
+                                            </div>
+                                            <div className="transaction-meta">
+                                                <span>{tx.userId?.displayName} • {formatTime(tx.date)}</span>
                                             </div>
                                             {tx.description && (
-                                                <div className="transaction-meta">
-                                                    <span>{tx.description}</span>
+                                                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '2px' }}>
+                                                    {tx.description}
                                                 </div>
                                             )}
                                         </div>
