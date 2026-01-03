@@ -1,20 +1,24 @@
 import { useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { Icons } from './Icons';
 
 export default function Layout() {
     const navigate = useNavigate();
     const [showMore, setShowMore] = useState(false);
 
     const moreItems = [
-        { path: '/categories', icon: '🏷️', label: 'Danh mục' },
-        { path: '/budgets', icon: '📊', label: 'Ngân sách' },
-        { path: '/loans', icon: '💳', label: 'Khoản vay' },
-        { path: '/goals', icon: '🎯', label: 'Mục tiêu' },
-        { path: '/investments', icon: '📈', label: 'Đầu tư' },
-        { path: '/reports', icon: '📋', label: 'Báo cáo' },
-        { path: '/family', icon: '👨‍👩‍👧', label: 'Gia đình' },
-        { path: '/settings', icon: '⚙️', label: 'Cài đặt' },
+        { path: '/categories', icon: Icons.category, label: 'Danh mục' },
+        { path: '/budgets', icon: Icons.budget, label: 'Ngân sách' },
+        { path: '/loans', icon: Icons.loan, label: 'Khoản vay' },
+        { path: '/goals', icon: Icons.goal, label: 'Mục tiêu' },
+        { path: '/investments', icon: Icons.investment, label: 'Đầu tư' },
+        { path: '/reports', icon: Icons.report, label: 'Báo cáo' },
+        { path: '/family', icon: Icons.family, label: 'Gia đình' },
+        { path: '/settings', icon: Icons.settings, label: 'Cài đặt' },
     ];
+
+    const iconStyle = { width: 24, height: 24 };
+    const moreIconStyle = { width: 28, height: 28, marginBottom: 4 };
 
     return (
         <>
@@ -23,21 +27,21 @@ export default function Layout() {
             <nav className="bottom-nav">
                 <div className="bottom-nav-inner">
                     <NavLink to="/dashboard" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-                        <span className="nav-icon">📊</span>
+                        <span className="nav-icon"><Icons.dashboard style={iconStyle} /></span>
                         <span className="nav-label">Tổng quan</span>
                     </NavLink>
 
                     <NavLink to="/transactions" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-                        <span className="nav-icon">📋</span>
+                        <span className="nav-icon"><Icons.history style={iconStyle} /></span>
                         <span className="nav-label">Lịch sử</span>
                     </NavLink>
 
                     <button className="nav-add-btn" onClick={() => navigate('/')}>
-                        +
+                        <Icons.plus style={{ width: 28, height: 28 }} />
                     </button>
 
                     <NavLink to="/recurring" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-                        <span className="nav-icon">🔄</span>
+                        <span className="nav-icon"><Icons.recurring style={iconStyle} /></span>
                         <span className="nav-label">Định kỳ</span>
                     </NavLink>
 
@@ -45,7 +49,7 @@ export default function Layout() {
                         className={`nav-item ${showMore ? 'active' : ''}`}
                         onClick={() => setShowMore(!showMore)}
                     >
-                        <span className="nav-icon">☰</span>
+                        <span className="nav-icon"><Icons.menu style={iconStyle} /></span>
                         <span className="nav-label">Thêm</span>
                     </button>
                 </div>
@@ -98,7 +102,7 @@ export default function Layout() {
                                         transition: 'var(--transition-fast)'
                                     }}
                                 >
-                                    <span style={{ fontSize: '1.5rem', marginBottom: '4px' }}>{item.icon}</span>
+                                    <item.icon style={moreIconStyle} />
                                     <span style={{ fontSize: '0.625rem', textAlign: 'center' }}>{item.label}</span>
                                 </NavLink>
                             ))}
@@ -109,4 +113,3 @@ export default function Layout() {
         </>
     );
 }
-
