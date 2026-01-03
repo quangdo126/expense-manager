@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { recurringAPI, categoriesAPI } from '../api';
+import ConfirmModal from '../components/ConfirmModal';
 
 const FREQUENCY_LABELS = {
     daily: 'Hàng ngày',
@@ -21,6 +22,7 @@ export default function Recurring() {
         frequency: 'monthly',
         dayOfMonth: 1
     });
+    const [deletingId, setDeletingId] = useState(null);
     const [toast, setToast] = useState(null);
 
     useEffect(() => {
@@ -79,7 +81,6 @@ export default function Recurring() {
     };
 
     const handleDelete = async (id) => {
-        if (!confirm('Xóa giao dịch định kỳ này?')) return;
         try {
             await recurringAPI.delete(id);
             setToast({ type: 'success', message: 'Đã xóa' });
@@ -213,7 +214,7 @@ export default function Recurring() {
                                 <button
                                     className="btn btn-ghost"
                                     style={{ color: 'var(--danger)' }}
-                                    onClick={() => handleDelete(rec._id)}
+                                    onClick={() => setDeletingId(rec._id)}
                                 >
                                     🗑️
                                 </button>
@@ -325,6 +326,18 @@ export default function Recurring() {
             )}
 
             {toast && <div className={`toast ${toast.type}`}>{toast.message}</div>}
+
+            {/* Delete Confirm Modal */}
+            <ConfirmModal
+                isOpen={!!deletingId}
+                onClose={() => setDeletingId(null)}
+                onConfirm={() => handleDelete(deletingId)}
+                title="Xóa giao dịch định kỳ"
+                message="Bạn có chắc muốn xóa giao dịch định kỳ này?"
+                confirmText="Xóa"
+                cancelText="Hủy"
+                type="danger"
+            />
         </div>
     );
 }

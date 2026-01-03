@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { loansAPI } from '../api';
+import ConfirmModal from '../components/ConfirmModal';
 
 export default function Loans() {
     const [loans, setLoans] = useState([]);
@@ -16,6 +17,7 @@ export default function Loans() {
         note: ''
     });
     const [paymentAmount, setPaymentAmount] = useState('');
+    const [deletingId, setDeletingId] = useState(null);
     const [toast, setToast] = useState(null);
 
     useEffect(() => {
@@ -63,7 +65,6 @@ export default function Loans() {
     };
 
     const handleDelete = async (id) => {
-        if (!confirm('Xóa khoản vay này?')) return;
         try {
             await loansAPI.delete(id);
             setToast({ type: 'success', message: 'Đã xóa' });
@@ -286,6 +287,18 @@ export default function Loans() {
             )}
 
             {toast && <div className={`toast ${toast.type}`}>{toast.message}</div>}
+
+            {/* Delete Confirm Modal */}
+            <ConfirmModal
+                isOpen={!!deletingId}
+                onClose={() => setDeletingId(null)}
+                onConfirm={() => handleDelete(deletingId)}
+                title="Xóa khoản vay"
+                message="Bạn có chắc muốn xóa khoản vay này?"
+                confirmText="Xóa"
+                cancelText="Hủy"
+                type="danger"
+            />
         </div>
     );
 }

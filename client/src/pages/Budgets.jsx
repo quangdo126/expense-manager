@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { budgetsAPI, categoriesAPI } from '../api';
 import { useAuth } from '../context/AuthContext';
+import ConfirmModal from '../components/ConfirmModal';
 
 export default function Budgets() {
     const { isAdmin } = useAuth();
@@ -14,6 +15,7 @@ export default function Budgets() {
         period: 'monthly',
         alertThreshold: 80
     });
+    const [deletingId, setDeletingId] = useState(null);
     const [toast, setToast] = useState(null);
 
     useEffect(() => {
@@ -53,7 +55,6 @@ export default function Budgets() {
     };
 
     const handleDelete = async (id) => {
-        if (!confirm('Xóa ngân sách này?')) return;
         try {
             await budgetsAPI.delete(id);
             setToast({ type: 'success', message: 'Đã xóa' });
@@ -150,7 +151,7 @@ export default function Budgets() {
                                     <button
                                         className="btn btn-ghost"
                                         style={{ color: 'var(--danger)' }}
-                                        onClick={() => handleDelete(budget._id)}
+                                        onClick={() => setDeletingId(budget._id)}
                                     >
                                         🗑️
                                     </button>
@@ -259,6 +260,18 @@ export default function Budgets() {
             )}
 
             {toast && <div className={`toast ${toast.type}`}>{toast.message}</div>}
+
+            {/* Delete Confirm Modal */}
+            <ConfirmModal
+                isOpen={!!deletingId}
+                onClose={() => setDeletingId(null)}
+                onConfirm={() => handleDelete(deletingId)}
+                title="Xóa ngân sách"
+                message="Bạn có chắc muốn xóa ngân sách này?"
+                confirmText="Xóa"
+                cancelText="Hủy"
+                type="danger"
+            />
         </div>
     );
 }

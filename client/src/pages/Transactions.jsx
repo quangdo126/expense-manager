@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { transactionsAPI, categoriesAPI } from '../api';
 import { useAuth } from '../context/AuthContext';
+import ConfirmModal from '../components/ConfirmModal';
 
 export default function Transactions() {
     const { user } = useAuth();
@@ -11,6 +12,7 @@ export default function Transactions() {
     const [page, setPage] = useState(1);
     const [pagination, setPagination] = useState(null);
     const [editingTx, setEditingTx] = useState(null);
+    const [deletingId, setDeletingId] = useState(null);
     const [toast, setToast] = useState(null);
 
     useEffect(() => {
@@ -47,8 +49,6 @@ export default function Transactions() {
     };
 
     const handleDelete = async (id) => {
-        if (!confirm('Bạn có chắc muốn xóa giao dịch này?')) return;
-
         try {
             await transactionsAPI.delete(id);
             setToast({ type: 'success', message: 'Đã xóa giao dịch' });
@@ -255,7 +255,7 @@ export default function Transactions() {
                             <button
                                 className="btn btn-danger btn-block"
                                 onClick={() => {
-                                    handleDelete(editingTx._id);
+                                    setDeletingId(editingTx._id);
                                     setEditingTx(null);
                                 }}
                             >
@@ -272,6 +272,18 @@ export default function Transactions() {
                     {toast.message}
                 </div>
             )}
+
+            {/* Delete Confirm Modal */}
+            <ConfirmModal
+                isOpen={!!deletingId}
+                onClose={() => setDeletingId(null)}
+                onConfirm={() => handleDelete(deletingId)}
+                title="Xóa giao dịch"
+                message="Bạn có chắc muốn xóa giao dịch này?"
+                confirmText="Xóa"
+                cancelText="Hủy"
+                type="danger"
+            />
         </div>
     );
 }

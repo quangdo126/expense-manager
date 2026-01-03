@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { familyAPI } from '../api';
 import { useAuth } from '../context/AuthContext';
+import ConfirmModal from '../components/ConfirmModal';
 
 export default function Family() {
     const { user, family, isAdmin, updateFamily } = useAuth();
@@ -9,6 +10,8 @@ export default function Family() {
     const [toast, setToast] = useState(null);
     const [editing, setEditing] = useState(false);
     const [familyName, setFamilyName] = useState('');
+    const [showRegenerateConfirm, setShowRegenerateConfirm] = useState(false);
+    const [removingMember, setRemovingMember] = useState(null);
 
     useEffect(() => {
         loadFamily();
@@ -39,8 +42,6 @@ export default function Family() {
     };
 
     const handleRegenerateCode = async () => {
-        if (!confirm('Mã mời cũ sẽ hết hiệu lực. Tiếp tục?')) return;
-
         try {
             const data = await familyAPI.regenerateCode();
             updateFamily({ ...family, inviteCode: data.inviteCode });
@@ -51,8 +52,6 @@ export default function Family() {
     };
 
     const handleRemoveMember = async (userId, name) => {
-        if (!confirm(`Xóa ${name} khỏi gia đình?`)) return;
-
         try {
             await familyAPI.removeMember(userId);
             setMembers(members.filter(m => m._id !== userId));
@@ -140,7 +139,7 @@ export default function Family() {
                             <button className="btn btn-primary" onClick={handleCopyCode}>
                                 📋 Sao chép
                             </button>
-                            <button className="btn btn-secondary" onClick={handleRegenerateCode}>
+                            <button className="btn btn-secondary" onClick={() => setShowRegenerateConfirm(true)}>
                                 🔄 Tạo mã mới
                             </button>
                         </div>
@@ -179,7 +178,7 @@ export default function Family() {
                             {isAdmin && member._id !== user?._id && member.role !== 'admin' && (
                                 <button
                                     className="btn btn-ghost"
-                                    onClick={() => handleRemoveMember(member._id, member.displayName)}
+                                    onClick={() => setRemovingMember(member)}
                                     style={{ color: 'var(--danger)' }}
                                 >
                                     ✕
@@ -196,6 +195,30 @@ export default function Family() {
                     {toast.message}
                 </div>
             )}
+
+            {/* Regenerate Code Confirm Modal */}
+            <ConfirmModal
+                isOpen={showRegenerateConfirm}
+                onClose={() => setShowRegenerateConfirm(false)}
+                onConfirm={handleRegenerateCode}
+                title="Tạo mã mời mới"
+                message="Mã mời cũ sẽ hết hiệu lực. Bạn có chắc muốn tiếp tục?"
+                confirmText="Tạo mã mới"
+                cancelText="Hủy"
+                type="warning"
+            />
+
+            {/* Remove Member Confirm Modal */}
+            <ConfirmModal
+                isOpen={!!removingMember}
+                onClose={() => setRemovingMember(null)}
+                onConfirm={() => handleRemoveMember(removingMember?._id)}
+                title="Xóa thành viên"
+                message={`Bạn có chắc muốn xóa ${removingMember?.displayName} khỏi gia đình?`}
+                confirmText="Xóa"
+                cancelText="Hủy"
+                type="danger"
+            />
         </div>
     );
 }

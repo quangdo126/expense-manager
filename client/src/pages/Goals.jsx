@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { goalsAPI } from '../api';
 import IconPicker from '../components/IconPicker';
+import ConfirmModal from '../components/ConfirmModal';
 
 export default function Goals() {
     const [goals, setGoals] = useState([]);
@@ -16,6 +17,7 @@ export default function Goals() {
         color: '#6366f1'
     });
     const [contributeAmount, setContributeAmount] = useState('');
+    const [deletingId, setDeletingId] = useState(null);
     const [toast, setToast] = useState(null);
 
     useEffect(() => {
@@ -62,7 +64,6 @@ export default function Goals() {
     };
 
     const handleDelete = async (id) => {
-        if (!confirm('Xóa mục tiêu này?')) return;
         try {
             await goalsAPI.delete(id);
             setToast({ type: 'success', message: 'Đã xóa' });
@@ -353,6 +354,18 @@ export default function Goals() {
             )}
 
             {toast && <div className={`toast ${toast.type}`}>{toast.message}</div>}
+
+            {/* Delete Confirm Modal */}
+            <ConfirmModal
+                isOpen={!!deletingId}
+                onClose={() => setDeletingId(null)}
+                onConfirm={() => handleDelete(deletingId)}
+                title="Xóa mục tiêu"
+                message="Bạn có chắc muốn xóa mục tiêu này?"
+                confirmText="Xóa"
+                cancelText="Hủy"
+                type="danger"
+            />
         </div>
     );
 }

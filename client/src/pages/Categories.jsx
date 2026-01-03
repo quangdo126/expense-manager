@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { categoriesAPI } from '../api';
 import { useAuth } from '../context/AuthContext';
 import IconPicker from '../components/IconPicker';
+import ConfirmModal from '../components/ConfirmModal';
 
 export default function Categories() {
     const { isAdmin } = useAuth();
@@ -19,6 +20,7 @@ export default function Categories() {
     });
     const [toast, setToast] = useState(null);
     const [activeTab, setActiveTab] = useState('expense');
+    const [deletingCategory, setDeletingCategory] = useState(null);
 
     useEffect(() => {
         loadCategories();
@@ -72,8 +74,6 @@ export default function Categories() {
     };
 
     const handleDelete = async (id, name) => {
-        if (!confirm(`Xóa danh mục "${name}"?`)) return;
-
         try {
             await categoriesAPI.delete(id);
             setToast({ type: 'success', message: 'Đã xóa danh mục' });
@@ -209,7 +209,7 @@ export default function Categories() {
                                             <button
                                                 className="btn btn-ghost"
                                                 style={{ color: 'var(--danger)' }}
-                                                onClick={() => handleDelete(cat._id, cat.name)}
+                                                onClick={() => setDeletingCategory(cat)}
                                             >
                                                 🗑️
                                             </button>
@@ -362,6 +362,18 @@ export default function Categories() {
                     {toast.message}
                 </div>
             )}
+
+            {/* Delete Confirm Modal */}
+            <ConfirmModal
+                isOpen={!!deletingCategory}
+                onClose={() => setDeletingCategory(null)}
+                onConfirm={() => handleDelete(deletingCategory?._id)}
+                title="Xóa danh mục"
+                message={`Bạn có chắc muốn xóa danh mục "${deletingCategory?.name}"?`}
+                confirmText="Xóa"
+                cancelText="Hủy"
+                type="danger"
+            />
         </div>
     );
 }

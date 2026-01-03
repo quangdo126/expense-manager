@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { investmentsAPI } from '../api';
+import ConfirmModal from '../components/ConfirmModal';
 
 const INVESTMENT_TYPES = {
     stock: { label: 'Cổ phiếu', icon: '📈' },
@@ -24,6 +25,7 @@ export default function Investments() {
         note: ''
     });
     const [newValue, setNewValue] = useState('');
+    const [deletingId, setDeletingId] = useState(null);
     const [toast, setToast] = useState(null);
 
     useEffect(() => {
@@ -72,7 +74,6 @@ export default function Investments() {
     };
 
     const handleDelete = async (id) => {
-        if (!confirm('Xóa khoản đầu tư này?')) return;
         try {
             await investmentsAPI.delete(id);
             setToast({ type: 'success', message: 'Đã xóa' });
@@ -206,7 +207,7 @@ export default function Investments() {
                                     <button
                                         className="btn btn-ghost"
                                         style={{ color: 'var(--danger)' }}
-                                        onClick={() => handleDelete(inv._id)}
+                                        onClick={() => setDeletingId(inv._id)}
                                     >
                                         🗑️
                                     </button>
@@ -315,6 +316,18 @@ export default function Investments() {
             )}
 
             {toast && <div className={`toast ${toast.type}`}>{toast.message}</div>}
+
+            {/* Delete Confirm Modal */}
+            <ConfirmModal
+                isOpen={!!deletingId}
+                onClose={() => setDeletingId(null)}
+                onConfirm={() => handleDelete(deletingId)}
+                title="Xóa khoản đầu tư"
+                message="Bạn có chắc muốn xóa khoản đầu tư này?"
+                confirmText="Xóa"
+                cancelText="Hủy"
+                type="danger"
+            />
         </div>
     );
 }
